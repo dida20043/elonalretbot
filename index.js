@@ -1,32 +1,32 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const axios = require('axios');
+const bodyParser = require('body-parser');
 require('dotenv').config();
 
 const app = express();
 app.use(bodyParser.json());
 
 const TOKEN = process.env.BOT_TOKEN;
-const TELEGRAM_API = https://api.telegram.org/bot${TOKEN};
+const TELEGRAM_URL = https://api.telegram.org/bot${TOKEN};
+
+app.get('/', (req, res) => {
+  res.send('✅ البوت شغال!');
+});
 
 app.post('/webhook', async (req, res) => {
-  const message = req.body.message;
+  const msg = req.body.message;
 
-  if (message && message.text === '/start') {
-    await axios.post(${TELEGRAM_API}/sendMessage, {
-      chat_id: message.chat.id,
-      text: '🤖 مرحبًا بك! تم تفعيل بوت Elon بنجاح ✅',
+  if (msg && msg.text === '/start') {
+    await axios.post(${TELEGRAM_URL}/sendMessage, {
+      chat_id: msg.chat.id,
+      text: '👋 أهلًا بك! البوت يعمل الآن بنجاح ✅',
     });
   }
 
   res.sendStatus(200);
 });
 
-app.get('/', (req, res) => {
-  res.send('Bot is live ✅');
-});
-
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
-  console.log(Bot running on port ${PORT});
+  console.log(✅ Server is running on port ${PORT});
 });
